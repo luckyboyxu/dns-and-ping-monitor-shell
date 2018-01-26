@@ -35,11 +35,11 @@ exec_ping()
     local stop_run=false
     while ! $stop_run
     do
-        if [ ! -e "/home/dji/shell/check_ping/sum/"$1.log ];then
-	    echo 0 0 > "/home/dji/shell/check_ping/sum/"$1.log
+        if [ ! -e "/home/peter/shell/check_ping/sum/"$1.log ];then
+	    echo 0 0 > "/home/peter/shell/check_ping/sum/"$1.log
     	fi
-    	local failed_sum=`cat "/home/dji/shell/check_ping/sum/"$1.log | awk '{print $1}'` 
-    	local send_sum=`cat "/home/dji/shell/check_ping/sum/"$1.log | awk '{print $2}'` 
+    	local failed_sum=`cat "/home/peter/shell/check_ping/sum/"$1.log | awk '{print $1}'` 
+    	local send_sum=`cat "/home/peter/shell/check_ping/sum/"$1.log | awk '{print $2}'` 
     	ping -c 1 -w $ping_timeout $1 &>/dev/null && failed_sum=0 || (( failed_sum+=1 ))
     	[[ $failed_sum -eq $failed_packages_sum ]] && failed_sum=0 && action $1 && stop_run=true && (( send_sum+=1 ))
 	if [[ $send_sum -eq $send_sum_all ]]
@@ -49,7 +49,7 @@ exec_ping()
 	else 
 	    sleep 1
 	fi
-    	echo $failed_sum $send_sum > "/home/dji/shell/check_ping/sum/"$1.log
+    	echo $failed_sum $send_sum > "/home/peter/shell/check_ping/sum/"$1.log
     done
 }
 exec_ping $1
