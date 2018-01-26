@@ -23,12 +23,12 @@ check_bind()
     while ! $stop_run
     do
         #通过写文件记录上次的监控结果
-	if [ ! -e "/home/dji/shell/check_bind/sum/"$1.log ];then
-            echo 0 0 > "/home/dji/shell/check_bind/sum/"$1.log
+	if [ ! -e "/home/peter/shell/check_bind/sum/"$1.log ];then
+            echo 0 0 > "/home/peter/shell/check_bind/sum/"$1.log
         fi
         #获取上次监控的结果
-	local failed_sum=`cat "/home/dji/shell/check_bind/sum/"$1.log | awk '{print $1}'`
-        local send_mail=`cat "/home/dji/shell/check_bind/sum/"$1.log | awk '{print $2}'`
+	local failed_sum=`cat "/home/peter/shell/check_bind/sum/"$1.log | awk '{print $1}'`
+        local send_mail=`cat "/home/peter/shell/check_bind/sum/"$1.log | awk '{print $2}'`
   
         #每告警10条以后，休眠5分钟后再告警,否则休眠一秒
         if [[ $send_mail -eq $send_mail_sum ]]
@@ -59,7 +59,7 @@ check_bind()
 	      let send_mail+=1
 	      stop_run=true
         fi
-	echo $failed_sum $send_mail > "/home/dji/shell/check_bind/sum/"$1.log
+	echo $failed_sum $send_mail > "/home/peter/shell/check_bind/sum/"$1.log
     done
 }
 check_bind $1
